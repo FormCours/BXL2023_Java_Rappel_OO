@@ -94,7 +94,7 @@ public class FormationCenter {
     // Méthodes (Method)
     public Boolean addTraining(String code, String name, int nbStudent, LocalDate startDate, LocalDate endDate) {
         if (nbStudent < 1 || nbStudent > 20) {
-            return false;
+            throw new RuntimeException("Le nombre de stagiaire doit etre entre 1 et 20");
         }
 
         if(trainings.containsKey(code)) {
@@ -109,6 +109,28 @@ public class FormationCenter {
 
     public Boolean addTraining(String code, String name, int nbStudent, LocalDate endDate) {
         return addTraining(code, name, nbStudent, LocalDate.now(), endDate);
+    }
+
+    public Boolean removeTraining(String code) {
+        TrainingPath deletedValue = trainings.remove(code);
+        return deletedValue != null;
+    }
+
+    public boolean updateTraining(String code, String name, int nbStudent, LocalDate startDate, LocalDate endDate) {
+        if (nbStudent < 1 || nbStudent > 20) {
+            throw new RuntimeException("Le nombre de stagiaire doit etre entre 1 et 20");
+        }
+
+        if(!trainings.containsKey(code)) {
+            return  false;
+        }
+
+        TrainingPath target = trainings.get(code);
+        target.setName(name);
+        target.setNbStudent((byte) nbStudent);
+        target.setStartDate(startDate);
+        target.setEndDate(endDate);
+        return true;
     }
 
 }
