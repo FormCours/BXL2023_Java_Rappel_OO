@@ -6,23 +6,25 @@ public class TrainingPath {
 
     // Champs -> Attributes
     private String name;
+    private String code;
     private LocalDate startDate;
     private LocalDate endDate;
     private byte nbStudent;
 
     // Constructeur
-    public TrainingPath(String name, byte nbStudent) {
+    public TrainingPath(String name, String code, byte nbStudent) {
         if(nbStudent <= 0) {
             throw new RuntimeException("Le nombre de stagiaire doit être positif");
         }
 
         this.name = name;
         this.nbStudent = nbStudent;
+        this.code = code;
     }
 
-    public TrainingPath(String name, LocalDate startDate, LocalDate endDate, byte nbStudent) {
+    public TrainingPath(String name, String code, byte nbStudent, LocalDate startDate, LocalDate endDate) {
         // L'appel du "this" (ou "super") doit toujours être la premier ligne executé (╯°□°）╯︵ ┻━┻
-        this(name, nbStudent);
+        this(name, code, nbStudent);
 
         if(startDate.isAfter(endDate)) {
             throw  new RuntimeException("Date invalide !");
@@ -37,6 +39,9 @@ public class TrainingPath {
         return name;
     }
 
+    public String getCode() {
+        return code;
+    }
     public LocalDate getStartDate() {
         return startDate;
     }
